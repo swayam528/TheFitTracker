@@ -2,11 +2,12 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { useAuthContext } from './hooks/useAuthContext'
 
 // pages & components
-import Home from './Pages/Home'
+
 import Login from './Pages/Login'
 import Signup from './Pages/Signup'
 import Navbar from './components/Navbar'
 import FitBot from './Pages/FitBot'; 
+import Home from './Pages/Home'
 function App() {
   const { user } = useAuthContext()
 
