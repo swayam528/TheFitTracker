@@ -1,25 +1,40 @@
-import { useWorkoutsContext} from "../hooks/useWorkoutsContext"
-import {formatDistanceToNow} from 'date-fns'
-const WorkoutDetails =  ({workout})=>{
-    const {dispatch} = useWorkoutsContext()
-    const handleClick = async()=>{
-        const response = await fetch('/api/workouts/' + workout._id, {
-            method: 'DELETE'
-        })
-        const json = await response.json()
-        if(response.ok){
-            dispatch({type:'DELETE_WORKOUT', payload: json})
-        }
+import { useWorkoutsContext } from '../hooks/useWorkoutsContext'
+import { useAuthContext } from '../hooks/useAuthContext'
+
+// date fns
+import formatDistanceToNow from 'date-fns/formatDistanceToNow'
+
+const WorkoutDetails = ({ workout }) => {
+  const { dispatch } = useWorkoutsContext()
+  const { user } = useAuthContext()
+
+  const handleClick = async () => {
+    if (!user) {
+      return
     }
-    return (
-        <div className = "workout-details">
-            <h4>{workout.title}</h4>
-            <p><strong>Weight (lbs): </strong>{workout.weight}</p>
-            <p><strong>Reps: </strong>{workout.reps}</p>
-            <p><strong>Time: </strong>{formatDistanceToNow(new Date(workout.createdAt), {addSuffix: true})}</p>
-            <span className = "material-symbols-outlined" onClick={handleClick}>delete</span>
-        </div>
-        
-    )
+
+    const response = await fetch('/api/workouts/' + workout._id, {
+      method: 'DELETE',
+      headers: {
+        'Authorization': `Bearer ${user.token}`
+      }
+    })
+    const json = await response.json()
+
+    if (response.ok) {
+      dispatch({type: 'DELETE_WORKOUT', payload: json})
+    }
+  }
+
+  return (
+    <div className="workout-details">
+      <h4>{workout.title}</h4>
+      <p><strong>Weight (lbs): </strong>{workout.weight}</p>
+      <p><strong>Reps: </strong>{workout.reps}</p>
+      <p>{formatDistanceToNow(new Date(workout.createdAt), { addSuffix: true })}</p>
+      <span className="material-symbols-outlined" onClick={handleClick}>delete</span>
+    </div>
+  )
 }
+
 export default WorkoutDetails

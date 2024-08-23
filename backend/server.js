@@ -1,29 +1,36 @@
 require('dotenv').config()
 
-//require express package-
-const express = require('express');
-//start express app
-const app = express()
-const workoutRoute = require('./routes/workouts')
-//import mongoose
+const express = require('express')
 const mongoose = require('mongoose')
-//middleware is any peice of code that exists between us getting a request to the server and us sending a response 
-app.use((req,res,next) => {
-    console.log(req.path,req.method);
-    next()
-})
-//needed to access request body-data that we are sending to the server. Basically attaches body attribute to request object
+const workoutRoutes = require('./routes/workouts')
+const userRoutes = require('./routes/user')
+const chatRoutes = require('./routes/chat')
+// express app
+const app = express()
+
+// middleware
 app.use(express.json())
-//setup a route handler
-app.use('/api/workouts',workoutRoute)
+const cors = require('cors');
+app.use(cors());
 
-//connect to DB
-mongoose.connect(process.env.MONGO_URI).then(()=>{
-    //listen for requests- a certain port number
-    app.listen(process.env.PORT,()=>{
-    console.log("listening on port",process.env.PORT);
-});
-}).catch((error) =>{console.log(error)})
+app.use((req, res, next) => {
+  console.log(req.path, req.method)
+  next()
+})
 
 
-   
+// routes
+app.use('/api/workouts', workoutRoutes)
+app.use('/api/user', userRoutes)
+app.use('/api/chatbot', chatRoutes)
+// connect to db
+mongoose.connect(process.env.MONGO_URI)
+  .then(() => {
+    // listen for requests
+    app.listen(process.env.PORT, () => {
+      console.log('connected to db & listening on port', process.env.PORT)
+    })
+  })
+  .catch((error) => {
+    console.log(error)
+  })
