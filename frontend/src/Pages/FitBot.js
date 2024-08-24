@@ -36,7 +36,7 @@ export default function Home() {
         newMessage = newMessage.text || JSON.stringify(newMessage); 
       }
 
-      newMessage = newMessage.replace(/\*/g, '').replace(/\n/g, '<br/>');
+      newMessage = newMessage.replace(/\*/g, '').replace(/\n/g);
 
       setMessages((messages) => [
         ...messages,

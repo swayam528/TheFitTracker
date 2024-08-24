@@ -79,7 +79,7 @@ Advise users to seek professional medical advice before starting any new fitness
 `;
 
 // Initialize the Google Generative AI model
-const genAI = new GoogleGenerativeAI("AIzaSyCYNSw8WcGlpLWzqHi2ekycqgNV9HagXVE");
+const genAI = new GoogleGenerativeAI(process.env.API_KEY);
 const genAiModel = genAI.getGenerativeModel({ model: "gemini-1.5-flash", systemInstruction: systemPrompt });
 const startChat = async (req, res) => {
     try {

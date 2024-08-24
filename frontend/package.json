@@ -1,5 +1,5 @@
 {
-  "proxy": "https://fitnesstrack-gk1s.onrender.com/",
+  "__proxy": "https://fitnesstrack-gk1s.onrender.com/",
   "name": "frontend",
   "version": "0.1.0",
   "private": true,
