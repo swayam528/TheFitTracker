@@ -24,7 +24,7 @@ export default function Home() {
     if (!message.trim()) return; // won't send empty messages
     setMessage('');
     try {
-      const response = await fetch('/api/chatbot/chat', {
+      const response = await fetch('https://fitnesstrack-gk1s.onrender.com/api/chatbot/chat', {
         method: "POST",
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify([...messages, { role: "user", parts: [{ text: message }] }])
