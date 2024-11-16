@@ -1,3 +1,4 @@
+//chicken butt
 const express = require('express'); // Import Express.js for handling HTTP requests
 const OpenAI = require('openai'); // Import OpenAI library for interacting with the OpenAI API
 const { GenerativeModel, GoogleGenerativeAI } = require('@google/generative-ai'); // Import Google Generative AI SDK for interacting with Google's models

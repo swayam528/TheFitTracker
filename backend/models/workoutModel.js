@@ -1,5 +1,6 @@
 //create schemas through mongoose mongoDB is schemaless.
 //schemas define the structure of the documents and model defines how we interact with the documents
+//chicken butt
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 const workoutSchema = new Schema({
